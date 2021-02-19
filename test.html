@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{ message }}
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <p v-html="rawHtml"></p>
+    <div v-bind:class="color">test.....</div>
+    <button v-bind:disabled="isButtonDisabled">Button</button>
+    <p>{{ number + 1 }}</p>
+    <p>{{ 12== 12 ? 'YES' : 'NO' }}</p>
+    <p>{{ message1.split('').reverse().join('') }}</p>
+    <p v-if="seen">现在你看到我了</p>
+    <a v-bind:href="url">a...</a>
+  </div>
+  <p>Reversed message: "{{ reversedMessage() }}"</p>
+  <div id="example">
+    <p>Original message: "{{ message }}"</p>
+    <p>Computed reversed message: "{{ reversedMessage }}"</p>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!',
+        rawHtml: '<span style= "color:red">This should be red !</span>',
+        color: 'blue',
+        isButtonDisabled: 'null',
+        number: 10,
+        ok: 1,
+        message1: 'vue',
+        seen: false,
+        url: "https://cn.vuejs.org/v2/guide/syntax.html",
+      },
+
+    });
+
+  </script>
+  <style type="text/css">
+    .red {
+      color: red;
+    }
+
+    .blue {
+      color: blue;
+      font-size: 100px;
+    }
+  </style>
+
+  <script>
+    var vm = new Vue({
+      el: '#example',
+      data: {
+        message: 'Hello'
+      },
+      computed: {
+        // 计算属性的 getter
+        reversedMessage: function () {
+          // `this` 指向 vm 实例
+          return this.message.split('').reverse().join('')
+        }
+      }
+    })
+    console.log(vm.reversedMessage)
+  </script>
+  <script>
+    var vm = new Vue({
+      methods: {
+        reversedMessage: function () {
+          return this.message.split('').reverse().join('')
+        },
+        computed: {
+          now: function () {
+            return Date.now()
+          }
+        },
+      }
+    })
+  </script>
+</body>
+
+</html>
